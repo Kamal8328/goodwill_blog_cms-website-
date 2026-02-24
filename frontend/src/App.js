@@ -13,6 +13,7 @@ import DashboardPage from "./pages/DashboardPage";
 import CreatePost from "./pages/CreatePost";
 import ViewPost from "./pages/ViewPost";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import BlogPage from "./components/BlogPage"
 
 // --- SECURITY GUARD ---
 const PrivateRoutes = () => {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/blogpost" element={<BlogpostPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/blogList" element={<BlogPage />} />
           <Route path="/tags" element={<TagsPage />} />
           <Route path="/media" element={<MediaLibraryPage />} />
           <Route path="/edit/:id" element={<EditPostPage />} />

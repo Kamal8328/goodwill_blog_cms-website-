@@ -34,8 +34,7 @@ const Sidebar = () => {
     { name: "Tags", path: "/tags", icons:<BsTags size={22}/> },
     { name: "Media Library", path: "/media", icons:<MdLibraryBooks size={22}/> },
     { name: "Counselling Data", path: "/counselling", icons:<RiFileUserLine size={22}/> },
-    { name: "view", path: "/posts/view/:id", icons:<BsFilePost size={22}/> },
-    
+    { name: "Blog List", path: "/blogList", icons:<RiFileUserLine size={22}/> }
   ];
 
   return (

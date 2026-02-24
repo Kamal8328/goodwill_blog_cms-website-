@@ -23,10 +23,11 @@ const syncTags = async (tagNames = []) => {
 /* =============================================
    1️⃣ GET ALL POSTS
 ============================================= */
+// backend/controllers/postController.js
 exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate("categories", "name")
+      .populate("categories", "name slug") // ADD "slug" HERE
       .populate("tags", "name slug")
       .sort({ createdAt: -1 });
     res.json(posts);
