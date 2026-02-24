@@ -1,0 +1,43 @@
+/* Premium Hide/Show Scrollbar */
+.custom-scrollbar-premium::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar-premium::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-scrollbar-premium::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Soft slate color */
+  border-radius: 20px;
+  border: 1px solid white; /* Adds "breathing" space around the thumb */
+}
+
+.custom-scrollbar-premium::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Typography & Layout Polish */
+.prose-responsive {
+  max-width: 100% !important;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-feature-settings: "kern" 1, "onum" 1, "liga" 1; /* Better font rendering */
+}
+
+/* Prevent horizontal shift on scroll */
+.preview-container {
+  overflow-x: hidden !important;
+  scrollbar-gutter: stable; /* Keeps layout from jumping when scrollbar appears */
+}
+
+/* Animated Ping */
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

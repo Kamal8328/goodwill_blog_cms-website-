@@ -102,7 +102,7 @@ export default function CreatePost() {
       selectedCategories.forEach(id => formData.append("categories", id));
 
       const tagArray = tags.split(",").map(t => t.trim()).filter(Boolean);
-      formData.append("tags", JSON.stringify(tagArray));
+      formData.append("tags", tagArray.join(","));
 
       formData.append("metaTitle", metaTitle.trim());
       formData.append("metaDescription", metaDesc.trim());
@@ -271,18 +271,88 @@ export default function CreatePost() {
 
 
             {/* TAGS – now correctly outside categories */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-              <label className="text-[10px] font-black uppercase text-slate-400 block mb-3">Tags</label>
-              <div className="relative">
-                <FaHashtag className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
-                <input 
-                  className="w-full bg-slate-50 p-4 pl-10 rounded-xl outline-none text-sm font-medium"
-                  placeholder="visa, guide, travel, budget..."
-                  value={tags}
-                  onChange={(e) => setTags(e.target.value)}
-                />
-              </div>
-            </div>
+            {/* TAGS SECTION */}
+<div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-4">
+    Tags
+  </label>
+  
+  <div className="space-y-4">
+    {/* Input & Add Button Group */}
+    <div className="flex gap-2">
+      <div className="relative flex-1 group">
+        <FaHashtag className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500" />
+        <input 
+          id="tag-input"
+          className="w-full bg-slate-50 p-4 pl-10 rounded-2xl outline-none text-sm font-bold border-2 border-transparent focus:border-blue-100 focus:bg-white transition-all shadow-inner"
+          placeholder="Add a tag..."
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              const val = e.target.value.trim();
+              if (val) {
+                const currentTags = tags ? tags.split(',').map(t => t.trim()) : [];
+                if (!currentTags.includes(val)) {
+                  setTags(tags ? `${tags}, ${val}` : val);
+                }
+                e.target.value = "";
+              }
+            }
+          }}
+        />
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          const input = document.getElementById('tag-input');
+          const val = input.value.trim();
+          if (val) {
+            const currentTags = tags ? tags.split(',').map(t => t.trim()) : [];
+            if (!currentTags.includes(val)) {
+              setTags(tags ? `${tags}, ${val}` : val);
+            }
+            input.value = "";
+          }
+        }}
+        className="bg-blue-50 text-blue-600 px-6 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 hover:text-white transition-all active:scale-95 border border-blue-100"
+      >
+        Add
+      </button>
+    </div>
+
+    {/* Visual Tag Chips */}
+    <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+      {tags.split(',')
+        .map(t => t.trim())
+        .filter(Boolean)
+        .map((tag, index) => (
+          <div 
+            key={index}
+            className="flex items-center gap-2 bg-white text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm animate-in fade-in zoom-in duration-200"
+          >
+            <span className="text-[10px] font-black uppercase text-blue-600">#</span>
+            <span className="text-xs font-bold">{tag}</span>
+            <button
+              type="button"
+              onClick={() => {
+                const tagList = tags.split(',').map(t => t.trim()).filter(Boolean);
+                tagList.splice(index, 1);
+                setTags(tagList.join(', '));
+              }}
+              className="hover:text-red-500 transition-colors ml-1"
+            >
+              <FaEyeSlash size={10} className="rotate-45" /> {/* Using eye slash as a cross variant or just a simple X */}
+              <span className="font-black text-[10px]">✕</span>
+            </button>
+          </div>
+        ))}
+      
+      {!tags.trim() && (
+        <p className="text-[10px] text-slate-400 italic px-2 py-1">No tags added. Press Enter or click Add.</p>
+      )}
+    </div>
+  </div>
+</div>
 
             {/* SEO */}
             <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm space-y-6">

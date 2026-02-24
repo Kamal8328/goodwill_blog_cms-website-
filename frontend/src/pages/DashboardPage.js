@@ -67,10 +67,10 @@ export default function DashboardPage() {
           <div className="flex justify-between mb-6">
             <h2 className="text-xl font-black">Recent Activity</h2>
             <button
-    onClick={() => navigate("/posts")}
+    onClick={() => navigate("/blogpost")}
     className="text-sm font-bold text-blue-600 hover:underline"
   >
-    View All →
+    View All
   </button>
           </div>
 

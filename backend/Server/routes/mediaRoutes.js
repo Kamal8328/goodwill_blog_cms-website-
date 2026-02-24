@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
-
-const protect = require("../middleware/authMiddleware");
-const adminProtect = require("../middleware/adminMiddleware");
+const { uploadMedia, getMedia, deleteMedia } = require("../controllers/mediaController");
 const { upload } = require("../middleware/uploadMiddleware");
+const protect = require("../middleware/authMiddleware");
 
-const {
-  uploadMedia,
-  getMedia,
-  deleteMedia,
-} = require("../controllers/mediaController");
+// Protection ensures only logged-in users can manage media
+router.use(protect);
 
-router.post("/", protect, adminProtect, upload.single("file"), uploadMedia);
-router.get("/", protect, adminProtect, getMedia);
-router.delete("/:id", protect, adminProtect, deleteMedia);
+router.get("/", getMedia);
+router.post("/", upload.single("file"), uploadMedia); // 'file' must match frontend formData
+router.delete("/:id", deleteMedia);
 
 module.exports = router;

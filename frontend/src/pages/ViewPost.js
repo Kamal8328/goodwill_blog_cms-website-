@@ -27,7 +27,7 @@ export default function ViewPost() {
 
           const res = await api.get(`/posts?category=${categoryId}`);
           setRelatedByCategory(
-            res.data.filter((p) => p._id !== id).slice(0, 3)
+            res.data.filter((p) => p._id !== id).slice(0, 3),
           );
         }
 
@@ -38,11 +38,8 @@ export default function ViewPost() {
             : data.tags.split(",")[0];
 
           const res = await api.get(`/posts?tag=${firstTag}`);
-          setRelatedByTags(
-            res.data.filter((p) => p._id !== id).slice(0, 3)
-          );
+          setRelatedByTags(res.data.filter((p) => p._id !== id).slice(0, 3));
         }
-
       } catch (err) {
         console.error("Fetch error:", err);
         navigate("/blogpost");
@@ -66,7 +63,6 @@ export default function ViewPost() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
         <button
@@ -79,7 +75,6 @@ export default function ViewPost() {
       </div>
 
       <div className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow space-y-8">
-
         {/* Title */}
         <h2 className="text-4xl font-bold">{post.title}</h2>
 
@@ -91,12 +86,6 @@ export default function ViewPost() {
             className="w-full h-96 object-cover rounded-xl"
           />
         )}
-
-        {/* Content */}
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
 
         {/* Categories */}
         {post.categories?.length > 0 && (
@@ -116,6 +105,7 @@ export default function ViewPost() {
         )}
 
         {/* Tags */}
+        {/* Tags */}
         {post.tags && (
           <div>
             <h3 className="font-semibold text-lg mb-3">Tags</h3>
@@ -123,10 +113,11 @@ export default function ViewPost() {
               {Array.isArray(post.tags)
                 ? post.tags.map((tag, i) => (
                     <span
-                      key={i}
-                      className="px-4 py-2 bg-green-100 text-green-700 rounded-lg"
+                      key={tag._id || i}
+                      className="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-bold"
                     >
-                      #{tag}
+                      {/* FIX: Access tag.name since it is an object */}#
+                      {typeof tag === "object" ? tag.name : tag}
                     </span>
                   ))
                 : post.tags}
@@ -134,12 +125,16 @@ export default function ViewPost() {
           </div>
         )}
 
+        {/* Content */}
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+
         {/* ================= RELATED BY CATEGORY ================= */}
         {relatedByCategory.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              Related by Category
-            </h3>
+            <h3 className="text-2xl font-bold mb-4">Related by Category</h3>
 
             <div className="grid md:grid-cols-3 gap-6">
               {relatedByCategory.map((item) => (
@@ -155,9 +150,7 @@ export default function ViewPost() {
                       className="w-full h-40 object-cover rounded-lg mb-3"
                     />
                   )}
-                  <h4 className="font-semibold text-lg">
-                    {item.title}
-                  </h4>
+                  <h4 className="font-semibold text-lg">{item.title}</h4>
                 </div>
               ))}
             </div>
@@ -167,9 +160,7 @@ export default function ViewPost() {
         {/* ================= RELATED BY TAG ================= */}
         {relatedByTags.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              Related by Tag
-            </h3>
+            <h3 className="text-2xl font-bold mb-4">Related by Tag</h3>
 
             <div className="grid md:grid-cols-3 gap-6">
               {relatedByTags.map((item) => (
@@ -185,15 +176,12 @@ export default function ViewPost() {
                       className="w-full h-40 object-cover rounded-lg mb-3"
                     />
                   )}
-                  <h4 className="font-semibold text-lg">
-                    {item.title}
-                  </h4>
+                  <h4 className="font-semibold text-lg">{item.title}</h4>
                 </div>
               ))}
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

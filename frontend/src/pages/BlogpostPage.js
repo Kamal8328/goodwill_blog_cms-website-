@@ -285,12 +285,14 @@ export default function BlogPostPage() {
                     >
                       <Pencil size={18} />
                     </button>
-                    <button
-                      onClick={() => navigate(`/posts/view/${post._id}`)}
-                      className="p-2 text-slate-400 hover:text-indigo-600"
-                    >
-                      <Eye size={18} />
-                    </button>
+                    {/* Inside the map function in BlogPostPage.jsx */}
+<button
+  onClick={() => navigate(`/posts/view/${post._id}`)} 
+  className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
+  title="View Post"
+>
+  <Eye size={18} />
+</button>
                     <button
                       onClick={() => deletePost(post._id)}
                       className="p-2 text-slate-400 hover:text-red-500"
