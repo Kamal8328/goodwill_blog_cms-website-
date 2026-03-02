@@ -7,6 +7,6 @@ const protect = require("../middleware/authMiddleware");
 router.post("/contact", submitContact);
 
 // Protected route (for Admin Dashboard viewing)
-router.get("/", protect, getClients);
+router.get("/", getClients);
 
 module.exports = router;

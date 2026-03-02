@@ -28,6 +28,7 @@ function App() {
       <Routes>
         {/* --- PUBLIC ROUTES (Move these OUTSIDE PrivateRoutes) --- */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
         {/* --- PROTECTED ROUTES (Must be logged in) --- */}
@@ -42,7 +43,7 @@ function App() {
           <Route path="/edit/:id" element={<EditPostPage />} />
           <Route path="/posts/view/:id" element={<ViewPost />} />
           <Route path="/counselling" element={<CounsellingdataPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          
           <Route path="/blog/:id" element={<BlogPostDetail />} />
           <Route path="/create" element={<CreatePost />} />
         </Route>

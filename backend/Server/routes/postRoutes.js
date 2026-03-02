@@ -19,8 +19,6 @@ const incrementViews = require("../middleware/incrementViews");
    PUBLIC ROUTES
 ============================== */
 
-
-
 // 1️⃣ Get all posts
 router.get("/", getPosts);
 
@@ -34,13 +32,10 @@ router.get("/:id", getPostById);
 // 4️⃣ Create post
 router.post("/", protect, upload.single("featuredImage"), createPost);
 
-
-
 // 5️⃣ Update post
 router.put("/:id", protect, upload.single("featuredImage"), updatePost);
 
 // 6️⃣ Delete post
 router.delete("/:id", protect, deletePost);
-
 
 module.exports = router;

@@ -1,82 +1,120 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"; // 1. Import useNavigate
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
-import { BsTags, BsFilePost } from 'react-icons/bs';
-import { MdLibraryBooks, MdOutlineSpaceDashboard } from 'react-icons/md';
-import { RiFileUserLine } from 'react-icons/ri';
-import { TbCategoryPlus } from 'react-icons/tb';
+import { BsTags, BsFilePost } from "react-icons/bs";
+import { MdLibraryBooks, MdOutlineSpaceDashboard } from "react-icons/md";
+import { RiFileUserLine } from "react-icons/ri";
+import { TbCategoryPlus } from "react-icons/tb";
+import { IoClose } from "react-icons/io5";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
-  const navigate = useNavigate(); // 2. Initialize the hook
+  const navigate = useNavigate();
 
-  // --- 3. THE LOGOUT FUNCTION ---
+  // Logout Function
   const handleLogout = () => {
-    // A. Ask for confirmation (Optional)
     const confirmLogout = window.confirm("Are you sure you want to log out?");
-    
     if (confirmLogout) {
-      // B. Destroy the Token (The "Key")
       localStorage.removeItem("token");
-      
-      // C. Optional: Clear other user data
       localStorage.removeItem("adminName");
       localStorage.removeItem("adminEmail");
-
-      // D. Redirect to Login Page
       navigate("/login");
     }
   };
 
   const menu = [
-    { name: "Dashboard", path: "/", icons:<MdOutlineSpaceDashboard size={22}/> },
-    { name: "Blog Posts", path: "/blogpost", icons:<BsFilePost size={22}/>},
-    { name: "Categories", path: "/categories", icons:<TbCategoryPlus size={22}/>},
-    { name: "Tags", path: "/tags", icons:<BsTags size={22}/> },
-    { name: "Media Library", path: "/media", icons:<MdLibraryBooks size={22}/> },
-    { name: "Counselling Data", path: "/counselling", icons:<RiFileUserLine size={22}/> },
-    { name: "Blog List", path: "/blogList", icons:<RiFileUserLine size={22}/> }
+    { name: "Dashboard", path: "/", icon: <MdOutlineSpaceDashboard size={22} /> },
+    { name: "Blog Posts", path: "/blogpost", icon: <BsFilePost size={22} /> },
+    { name: "Categories", path: "/categories", icon: <TbCategoryPlus size={22} /> },
+    { name: "Tags", path: "/tags", icon: <BsTags size={22} /> },
+    { name: "Media Library", path: "/media", icon: <MdLibraryBooks size={22} /> },
+    { name: "Counselling Data", path: "/counselling", icon: <RiFileUserLine size={22} /> },
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-gradient-to-b from-[#1F3B8D] to-[#214CB4] text-white flex flex-col shadow-lg sticky top-0 h-screen overflow-y-auto">
-      
-      {/* Logo */}
-      <div className="h-20 flex items-center px-6 border-b border-white/30 shrink-0">
-        <div className="w-8 h-8 bg-white/20 rounded-md backdrop-blur-sm flex items-center justify-center font-bold">A</div>
-        <span className="ml-3 font-semibold text-lg tracking-wide">Admin Panel</span>
-      </div>
+    <>
+      {/* Overlay (Mobile Only) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-      {/* Menu */}
-      <nav className="flex-1 px-4 py-6 space-y-2">
-        {menu.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group
-              ${
-                location.pathname === item.path
-                  ? "bg-white/20 font-bold shadow-lg shadow-blue-900/20"
-                  : "hover:bg-white/10 hover:translate-x-1"
-              }`}
-          >
-            <div className={`${location.pathname === item.path ? "text-white" : "text-blue-200 group-hover:text-white"}`}>
-              {item.icons}
-            </div>
-            <span className="text-sm">{item.name}</span>
-          </Link>
-        ))}
-      </nav>
-
-      {/* --- 4. ATTACH THE FUNCTION TO THE BUTTON --- */}
-      <button 
-        onClick={handleLogout} 
-        className="p-6 border-t border-white/20 flex items-center gap-3 cursor-pointer hover:bg-red-500/20 transition-colors mt-auto w-full text-left"
+      <aside
+        className={`
+          fixed md:static
+          z-50
+          top-0 left-0
+          min-h-screen
+          w-64
+          bg-gradient-to-b from-[#1F3B8D] to-[#214CB4]
+          text-white
+          flex flex-col
+          shadow-lg
+          transform
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0
+          transition-transform duration-300 ease-in-out
+        `}
       >
-        <BiLogOut size={22} className="text-red-200" />
-        <span className="font-semibold text-red-100">Logout</span>
-      </button>
+        {/* Header */}
+        <div className="h-20 flex items-center justify-between px-6 border-b border-white/30 shrink-0">
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-white/20 rounded-md flex items-center justify-center font-bold">
+              A
+            </div>
+            <span className="ml-3 font-semibold text-lg tracking-wide">
+              Admin Panel
+            </span>
+          </div>
 
-    </aside>
+          {/* Close Button (Mobile Only) */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsOpen(false)}
+          >
+            <IoClose size={24} />
+          </button>
+        </div>
+
+        {/* Menu */}
+        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          {menu.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              onClick={() => setIsOpen(false)} // Auto close on mobile
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group
+                ${
+                  location.pathname === item.path
+                    ? "bg-white/20 font-bold shadow-lg shadow-blue-900/20"
+                    : "hover:bg-white/10 hover:translate-x-1"
+                }`}
+            >
+              <div
+                className={`${
+                  location.pathname === item.path
+                    ? "text-white"
+                    : "text-blue-200 group-hover:text-white"
+                }`}
+              >
+                {item.icon}
+              </div>
+              <span className="text-sm">{item.name}</span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Logout */}
+        <button
+          onClick={handleLogout}
+          className="p-6 border-t border-white/20 flex items-center gap-3 hover:bg-red-500/20 transition-colors mt-auto w-full text-left"
+        >
+          <BiLogOut size={22} className="text-red-200" />
+          <span className="font-semibold text-red-100">Logout</span>
+        </button>
+      </aside>
+    </>
   );
 };
 

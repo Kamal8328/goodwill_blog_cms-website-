@@ -10,7 +10,7 @@ const analyticsRoutes = require("./routes/analyticsRoutes");
 const tagRoutes = require("./routes/tagRoutes");
 
 
-console.log("cloud name:" )
+
 const connectDB = require("./config/db");
 
 const app = express();
@@ -42,6 +42,7 @@ app.use("/api/clients", require("./routes/clientRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/tags", require("./routes/tagRoutes"));
 app.use("/api/media",require("./routes/mediaRoutes"))
+app.use("/api/contact",require("./routes/contactRoutes"));
 
 // Temporary script to sync old post images to Media Library
 const syncMedia = async () => {

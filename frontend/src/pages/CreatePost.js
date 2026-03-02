@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import RichTextEditor from "../components/RichTextEditor";
 import { useNavigate } from "react-router-dom";
@@ -126,16 +127,7 @@ export default function CreatePost() {
     } finally {
       setLoading(false);
     }
-
-   
-    
-
-    
-    
   };
-
-
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans relative">
       {/* LOADING OVERLAY */}
@@ -149,91 +141,204 @@ export default function CreatePost() {
       )}
 
       {/* HEADER */}
-      <div className="bg-white border-b px-8 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={() => navigate(-1)} 
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <FaArrowLeft className="text-gray-500" />
-          </button>
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">Create New Post</h1>
-        </div>
+      <div className="bg-white border-b 
+  px-4 sm:px-6 md:px-8 
+  py-3 sm:py-4 
+  flex flex-col sm:flex-row 
+  sm:items-center 
+  sm:justify-between 
+  gap-3 sm:gap-0 
+  sticky top-0 z-40 shadow-sm"
+>
+  {/* Left Section */}
+  <div className="flex items-center gap-3 sm:gap-4">
+    <button
+      onClick={() => navigate(-1)}
+      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+    >
+      <FaArrowLeft className="text-gray-500 text-sm sm:text-base" />
+    </button>
 
-        <div className="flex gap-3">
-          <button 
-            onClick={() => setShowPreview(!showPreview)} 
-            className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm font-bold text-slate-600 hover:bg-gray-200 transition-all"
-          >
-            {showPreview ? <FaEyeSlash /> : <FaEye />} Preview
-          </button>
-          <button 
-            onClick={() => handlePublish("Draft")} 
-            className="px-4 py-2 text-slate-500 font-bold hover:text-slate-800 transition-colors"
-          >
-            Save Draft
-          </button>
-          <button 
-            onClick={() => handlePublish("Published")} 
-            disabled={loading}
-            className="bg-[#253E90] hover:bg-blue-800 text-white px-8 py-2 rounded-xl font-bold shadow-lg shadow-blue-900/10 flex items-center gap-2 transition-all active:scale-95"
-          >
-            <FaCloudUploadAlt /> Publish
-          </button>
-        </div>
-      </div>
+    <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 tracking-tight">
+      Create New Post
+    </h1>
+  </div>
 
+  {/* Right Section */}
+  <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3">
+    
+    <button
+      onClick={() => setShowPreview(!showPreview)}
+      className="flex items-center justify-center gap-2 
+      px-3 sm:px-4 py-2 
+      bg-gray-100 rounded-xl 
+      text-xs sm:text-sm font-bold 
+      text-slate-600 hover:bg-gray-200 transition-all"
+    >
+      {showPreview ? <FaEyeSlash /> : <FaEye />}
+      Preview
+    </button>
+
+    <button
+      onClick={() => handlePublish("Draft")}
+      className="px-3 sm:px-4 py-2 
+      text-slate-500 font-bold 
+      text-xs sm:text-sm 
+      hover:text-slate-800 transition-colors"
+    >
+      Save Draft
+    </button>
+
+    <button
+      onClick={() => handlePublish("Published")}
+      disabled={loading}
+      className="bg-[#253E90] hover:bg-blue-800 
+      text-white 
+      px-4 sm:px-6 md:px-8 py-2 
+      rounded-xl font-bold 
+      text-xs sm:text-sm 
+      shadow-lg shadow-blue-900/10 
+      flex items-center justify-center gap-2 
+      transition-all active:scale-95 
+      w-full sm:w-auto"
+    >
+      <FaCloudUploadAlt />
+      Publish
+    </button>
+
+  </div>
+</div>
       <div className="flex-1 overflow-auto p-8">
         <div className={`grid gap-8 transition-all duration-500 ${showPreview ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-4xl mx-auto"}`}>
           
           {/* EDITOR COLUMN */}
           <div className="space-y-8">
             {/* TITLE + SLUG */}
-            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2">Article Title</label>
-              <input 
-                className="w-full text-2xl font-black outline-none border-b-2 border-transparent focus:border-blue-100 transition-all" 
-                placeholder="Enter title here..."
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <div className="mt-4 flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-50 p-2 rounded-lg">
-                <span className="shrink-0">/blog/</span>
-                <input 
-                  className="bg-transparent outline-none w-full text-blue-600" 
-                  value={slug}
-                  onChange={(e) => {
-                    setSlug(e.target.value);
-                    setIsAutoSlug(false);
-                  }}
-                />
-              </div>
-            </div>
+            <div className="
+  bg-white 
+  p-4 sm:p-6 md:p-8 
+  rounded-2xl md:rounded-[2rem] 
+  border border-gray-100 
+  shadow-sm
+">
+  
+  <label className="
+    text-[9px] sm:text-[10px] 
+    font-black uppercase 
+    tracking-widest 
+    text-slate-400 
+    block mb-2
+  ">
+    Article Title
+  </label>
+
+  <input 
+    className="
+      w-full 
+      text-lg sm:text-xl md:text-2xl 
+      font-black 
+      outline-none 
+      border-b-2 border-transparent 
+      focus:border-blue-200 
+      transition-all
+    " 
+    placeholder="Enter title here..."
+    value={title}
+    onChange={(e) => setTitle(e.target.value)}
+  />
+
+  <div className="
+    mt-4 
+    flex items-center 
+    gap-2 
+    text-[10px] sm:text-xs 
+    font-mono 
+    text-slate-400 
+    bg-slate-50 
+    p-2 sm:p-3 
+    rounded-lg
+    flex-wrap
+  ">
+    <span className="shrink-0">/blog/</span>
+
+    <input 
+      className="
+        bg-transparent 
+        outline-none 
+        w-full 
+        text-blue-600 
+        text-[10px] sm:text-xs
+      " 
+      value={slug}
+      onChange={(e) => {
+        setSlug(e.target.value);
+        setIsAutoSlug(false);
+      }}
+    />
+  </div>
+
+</div>
 
             {/* FEATURED IMAGE */}
-            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-4">Featured Image</label>
-              <div 
-                onClick={() => document.getElementById('file-upload')?.click()}
-                className="group relative aspect-video bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 transition-all overflow-hidden"
-              >
-                {preview ? (
-                  <img src={preview} className="w-full h-full object-cover" alt="Preview" />
-                ) : (
-                  <div className="text-center">
-                    <FaImage className="mx-auto text-4xl text-slate-200 mb-2" />
-                    <p className="text-sm font-bold text-slate-400">Click to upload cover photo</p>
-                  </div>
-                )}
-                <input 
-                  id="file-upload" 
-                  type="file" 
-                  className="hidden" 
-                  accept="image/*" 
-                  onChange={handleImageChange} 
-                />
-              </div>
-            </div>
+            <div className="
+  bg-white 
+  p-4 sm:p-6 md:p-8 
+  rounded-2xl md:rounded-[2rem] 
+  border border-gray-100 
+  shadow-sm
+">
+
+  <label className="
+    text-[9px] sm:text-[10px] 
+    font-black uppercase 
+    tracking-widest 
+    text-slate-400 
+    block mb-3 sm:mb-4
+  ">
+    Featured Image
+  </label>
+
+  <div
+    onClick={() => document.getElementById('file-upload')?.click()}
+    className="
+      group 
+      relative 
+      aspect-video 
+      bg-slate-50 
+      border-2 border-dashed border-slate-200 
+      rounded-xl sm:rounded-2xl md:rounded-3xl
+      flex flex-col items-center justify-center 
+      cursor-pointer 
+      hover:bg-slate-100 
+      transition-all 
+      overflow-hidden
+    "
+  >
+    {preview ? (
+      <img 
+        src={preview} 
+        className="w-full h-full object-cover" 
+        alt="Preview" 
+      />
+    ) : (
+      <div className="text-center px-4">
+        <FaImage className="mx-auto text-3xl sm:text-4xl md:text-5xl text-slate-200 mb-2" />
+        <p className="text-xs sm:text-sm font-bold text-slate-400">
+          Click to upload cover photo
+        </p>
+      </div>
+    )}
+
+    <input
+      id="file-upload"
+      type="file"
+      className="hidden"
+      accept="image/*"
+      onChange={handleImageChange}
+    />
+  </div>
+
+</div>
 
             {/* RICH EDITOR */}
             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden min-h-[400px]">
@@ -241,50 +346,112 @@ export default function CreatePost() {
             </div>
 
             {/* CATEGORIES */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-              <label className="text-[10px] font-black uppercase text-slate-400 block mb-4 tracking-widest">
-                Categories
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {dbCategories.map((cat) => (
-                  <button
-                    key={cat._id}
-                    type="button"
-                    onClick={() => toggleCategory(cat._id)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
-                      selectedCategories.includes(cat._id)
-                        ? "bg-[#253E90] text-white border-[#253E90] shadow-md"
-                        : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-slate-100"
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-                {categoriesLoading && (
-                <span className="text-xs text-slate-400 italic">Loding categories...</span>
-                )}
-                {!categoriesLoading && dbCategories.length === 0 && (
-                <span className="text-xs text-red-400 italic">No categories found</span>
-                )}
-              </div>
-            </div>
+            <div className="
+  bg-white 
+  p-4 sm:p-5 md:p-6 
+  rounded-xl sm:rounded-2xl 
+  border border-gray-100 
+  shadow-sm
+">
+
+  <label className="
+    text-[9px] sm:text-[10px] 
+    font-black uppercase 
+    text-slate-400 
+    block mb-3 sm:mb-4 
+    tracking-widest
+  ">
+    Categories
+  </label>
+
+  <div className="flex flex-wrap gap-2 sm:gap-3">
+
+    {dbCategories.map((cat) => (
+      <button
+        key={cat._id}
+        type="button"
+        onClick={() => toggleCategory(cat._id)}
+        className={`
+          px-3 sm:px-4 
+          py-1.5 sm:py-2 
+          rounded-lg sm:rounded-xl 
+          text-[10px] sm:text-xs 
+          font-bold 
+          transition-all 
+          border 
+          active:scale-95
+          ${
+            selectedCategories.includes(cat._id)
+              ? "bg-[#253E90] text-white border-[#253E90] shadow-md"
+              : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-slate-100"
+          }
+        `}
+      >
+        {cat.name}
+      </button>
+    ))}
+
+    {categoriesLoading && (
+      <span className="text-[10px] sm:text-xs text-slate-400 italic">
+        Loading categories...
+      </span>
+    )}
+
+    {!categoriesLoading && dbCategories.length === 0 && (
+      <span className="text-[10px] sm:text-xs text-red-400 italic">
+        No categories found
+      </span>
+    )}
+
+  </div>
+</div>
 
 
             {/* TAGS – now correctly outside categories */}
             {/* TAGS SECTION */}
-<div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-4">
+<div className="
+  bg-white 
+  p-4 sm:p-6 md:p-8 
+  rounded-2xl md:rounded-[2rem] 
+  border border-gray-100 
+  shadow-sm
+">
+
+  <label className="
+    text-[9px] sm:text-[10px] 
+    font-black uppercase 
+    tracking-widest 
+    text-slate-400 
+    block mb-3 sm:mb-4
+  ">
     Tags
   </label>
   
-  <div className="space-y-4">
-    {/* Input & Add Button Group */}
-    <div className="flex gap-2">
+  <div className="space-y-3 sm:space-y-4">
+
+    {/* Input & Add Button */}
+    <div className="flex flex-col sm:flex-row gap-2">
+      
       <div className="relative flex-1 group">
-        <FaHashtag className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500" />
+        <FaHashtag className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-blue-500 text-sm sm:text-base" />
+        
         <input 
           id="tag-input"
-          className="w-full bg-slate-50 p-4 pl-10 rounded-2xl outline-none text-sm font-bold border-2 border-transparent focus:border-blue-100 focus:bg-white transition-all shadow-inner"
+          className="
+            w-full 
+            bg-slate-50 
+            p-3 sm:p-4 
+            pl-9 sm:pl-10 
+            rounded-xl sm:rounded-2xl 
+            outline-none 
+            text-xs sm:text-sm 
+            font-bold 
+            border-2 border-transparent 
+            focus:border-blue-100 
+            focus:bg-white 
+            transition-all 
+            shadow-inner
+          "
           placeholder="Add a tag..."
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -301,6 +468,7 @@ export default function CreatePost() {
           }}
         />
       </div>
+
       <button
         type="button"
         onClick={() => {
@@ -314,24 +482,54 @@ export default function CreatePost() {
             input.value = "";
           }
         }}
-        className="bg-blue-50 text-blue-600 px-6 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 hover:text-white transition-all active:scale-95 border border-blue-100"
+        className="
+          w-full sm:w-auto
+          bg-blue-50 text-blue-600 
+          px-4 sm:px-6 
+          py-2 sm:py-0
+          rounded-xl sm:rounded-2xl 
+          font-black 
+          text-[10px] sm:text-xs 
+          uppercase 
+          hover:bg-blue-600 hover:text-white 
+          transition-all 
+          active:scale-95 
+          border border-blue-100
+        "
       >
         Add
       </button>
     </div>
 
-    {/* Visual Tag Chips */}
-    <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+    {/* Tag Chips */}
+    <div className="
+      flex flex-wrap gap-2 
+      min-h-[32px] sm:min-h-[40px] 
+      p-2 
+      bg-slate-50/50 
+      rounded-xl sm:rounded-2xl 
+      border border-dashed border-slate-200
+    ">
       {tags.split(',')
         .map(t => t.trim())
         .filter(Boolean)
         .map((tag, index) => (
           <div 
             key={index}
-            className="flex items-center gap-2 bg-white text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm animate-in fade-in zoom-in duration-200"
+            className="
+              flex items-center gap-1 sm:gap-2 
+              bg-white text-slate-700 
+              px-2 sm:px-3 
+              py-1 
+              rounded-lg sm:rounded-xl 
+              border border-slate-200 
+              shadow-sm 
+              transition-all
+            "
           >
-            <span className="text-[10px] font-black uppercase text-blue-600">#</span>
-            <span className="text-xs font-bold">{tag}</span>
+            <span className="text-[9px] sm:text-[10px] font-black uppercase text-blue-600">#</span>
+            <span className="text-[10px] sm:text-xs font-bold">{tag}</span>
+
             <button
               type="button"
               onClick={() => {
@@ -339,21 +537,22 @@ export default function CreatePost() {
                 tagList.splice(index, 1);
                 setTags(tagList.join(', '));
               }}
-              className="hover:text-red-500 transition-colors ml-1"
+              className="hover:text-red-500 transition-colors ml-1 text-xs"
             >
-              <FaEyeSlash size={10} className="rotate-45" /> {/* Using eye slash as a cross variant or just a simple X */}
-              <span className="font-black text-[10px]">✕</span>
+              ✕
             </button>
           </div>
         ))}
-      
+
       {!tags.trim() && (
-        <p className="text-[10px] text-slate-400 italic px-2 py-1">No tags added. Press Enter or click Add.</p>
+        <p className="text-[9px] sm:text-[10px] text-slate-400 italic px-2 py-1">
+          No tags added. Press Enter or click Add.
+        </p>
       )}
     </div>
+
   </div>
 </div>
-
             {/* SEO */}
             <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm space-y-6">
               <h3 className="font-bold text-slate-800 border-b pb-4">SEO Settings</h3>
@@ -389,69 +588,176 @@ export default function CreatePost() {
           </div>
 
           {/* PREVIEW COLUMN */}
-          {showPreview && (
-            <div className="bg-white border rounded-[3rem] shadow-2xl h-fit sticky top-28 p-10 overflow-hidden border-slate-100">
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedCategories.length > 0 ? (
-                  selectedCategories.map(id => {
-                    const cat = dbCategories.find(c => c._id === id);
-                    return cat ? (
-                      <span 
-                        key={id} 
-                        className="bg-blue-50 text-[#253E90] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest"
-                      >
-                        {cat.name}
-                      </span>
-                    ) : null;
-                  })
-                ) : (
-                  <span className="text-[10px] text-slate-300 italic uppercase">Uncategorized</span>
-                )}
-              </div>
+          {/* Desktop Preview */}
+{/* ============================= */}
+{/* DESKTOP STICKY PREVIEW */}
+{/* ============================= */}
+{showPreview && (
+  <div className="hidden md:block">
+    <div className="bg-white border border-slate-100 rounded-[3rem] shadow-2xl h-fit sticky top-28 p-10 overflow-hidden">
 
-              <h1 className="text-4xl font-black text-slate-900 leading-tight mb-4">
-                {title.trim() || "Untitled Post"}
-              </h1>
+      {/* Categories */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {selectedCategories.length > 0 ? (
+          selectedCategories.map(id => {
+            const cat = dbCategories.find(c => c._id === id);
+            return cat ? (
+              <span
+                key={id}
+                className="bg-blue-50 text-[#253E90] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest"
+              >
+                {cat.name}
+              </span>
+            ) : null;
+          })
+        ) : (
+          <span className="text-[10px] text-slate-300 italic uppercase">
+            Uncategorized
+          </span>
+        )}
+      </div>
 
-              {tags.trim() && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {tags.split(',').map((tag, i) => {
-                    const trimmed = tag.trim();
-                    return trimmed ? (
-                      <span 
-                        key={i} 
-                        className="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-md flex items-center gap-1 font-bold"
-                      >
-                        <FaHashtag size={8} className="text-blue-400" /> {trimmed}
-                      </span>
-                    ) : null;
-                  })}
-                </div>
-              )}
+      {/* Title */}
+      <h1 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-4">
+        {title.trim() || "Untitled Post"}
+      </h1>
 
-              <div className="mb-8">
-                {preview ? (
-                  <img 
-                    src={preview} 
-                    className="w-full rounded-2xl shadow-lg object-cover max-h-[400px]" 
-                    alt="Cover" 
-                  />
-                ) : (
-                  <div className="w-full h-64 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-300">
-                    <FaImage size={40} className="mb-2" />
-                    <p className="text-[10px] font-black uppercase tracking-widest">No Image Provided</p>
-                  </div>
-                )}
-              </div>
-              
-              <div 
-                className="prose prose-slate max-w-none prose-headings:font-black prose-p:text-slate-600"
-                dangerouslySetInnerHTML={{ __html: content || "<i>Post content preview...</i>" }} 
-              />
+      {/* Tags */}
+      {tags.trim() && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {tags.split(",").map((tag, i) => {
+            const trimmed = tag.trim();
+            return trimmed ? (
+              <span
+                key={i}
+                className="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-md font-bold"
+              >
+                #{trimmed}
+              </span>
+            ) : null;
+          })}
+        </div>
+      )}
+
+      {/* Image */}
+      <div className="mb-8">
+        {preview ? (
+          <img
+            src={preview}
+            className="w-full rounded-2xl shadow-lg object-cover max-h-[400px]"
+            alt="Cover"
+          />
+        ) : (
+          <div className="w-full h-48 md:h-64 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center text-slate-300">
+            No Image Provided
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div
+        className="prose prose-slate max-w-none prose-headings:font-black prose-p:text-slate-600"
+        dangerouslySetInnerHTML={{
+          __html: content || "<i>Post content preview...</i>"
+        }}
+      />
+    </div>
+  </div>
+)}
+
+
+{/* ============================= */}
+{/* MOBILE FULLSCREEN PREVIEW */}
+{/* ============================= */}
+{showPreview && (
+  <div className="md:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    
+    <div className="bg-white w-full h-full rounded-2xl overflow-y-auto relative p-6 shadow-2xl">
+
+      {/* Close Button */}
+      <button
+        onClick={() => setShowPreview(false)}
+        className="absolute top-4 right-4 text-sm font-bold text-slate-500"
+      >
+        Close ✕
+      </button>
+
+      <div className="mt-8">
+
+        {/* Categories */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {selectedCategories.length > 0 ? (
+            selectedCategories.map(id => {
+              const cat = dbCategories.find(c => c._id === id);
+              return cat ? (
+                <span
+                  key={id}
+                  className="bg-blue-50 text-[#253E90] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest"
+                >
+                  {cat.name}
+                </span>
+              ) : null;
+            })
+          ) : (
+            <span className="text-[10px] text-slate-300 italic uppercase">
+              Uncategorized
+            </span>
+          )}
+        </div>
+
+        {/* Title */}
+        <h1 className="text-2xl font-black text-slate-900 leading-tight mb-4">
+          {title.trim() || "Untitled Post"}
+        </h1>
+
+        {/* Tags */}
+        {tags.trim() && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {tags.split(",").map((tag, i) => {
+              const trimmed = tag.trim();
+              return trimmed ? (
+                <span
+                  key={i}
+                  className="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-md font-bold"
+                >
+                  #{trimmed}
+                </span>
+              ) : null;
+            })}
+          </div>
+        )}
+
+        {/* Image */}
+        <div className="mb-8">
+          {preview ? (
+            <img
+              src={preview}
+              className="w-full rounded-2xl shadow-lg object-cover max-h-[400px]"
+              alt="Cover"
+            />
+          ) : (
+            <div className="w-full h-48 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center text-slate-300">
+              No Image Provided
             </div>
           )}
+        </div>
+
+        {/* Content */}
+        <div
+          className="prose prose-slate max-w-none prose-headings:font-black prose-p:text-slate-600"
+          dangerouslySetInnerHTML={{
+            __html: content || "<i>Post content preview...</i>"
+          }}
+        />
+
+      </div>
+    </div>
+  </div>
+)}
         </div>
       </div>
     </div>
   );
 }
+
+
