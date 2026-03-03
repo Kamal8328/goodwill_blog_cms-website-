@@ -42,7 +42,12 @@ app.use("/api/clients", require("./routes/clientRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/tags", require("./routes/tagRoutes"));
 app.use("/api/media",require("./routes/mediaRoutes"))
-app.use("/api/contact",require("./routes/contactRoutes"));
+app.use("/api/contact", require("./routes/contactRoutes"))
+
+
+
+const { handleContactSubmission } = require('./controllers/subscribeController');
+app.post('/api/subscribe', handleContactSubmission);
 
 // Temporary script to sync old post images to Media Library
 const syncMedia = async () => {

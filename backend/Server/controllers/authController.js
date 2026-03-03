@@ -53,17 +53,21 @@ exports.forgotPassword = async (req, res) => {
       const resetURL = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
       const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: true,
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
+  host: "smtp.hostinger.com",
+  port: 587,
+  secure: false, // IMPORTANT for 587
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  tls: {
+    ciphers: "SSLv3",
+  },
+});
       
-      await transporter.verify();
-      console.log("SMPT connected successfully");
+      transporter.verify((err, success) => {
+  console.log(err || "SMTP CONNECTED");
+});
       await transporter.sendMail({
         from: process.env.SMTP_USER,
         to: admin.email,
