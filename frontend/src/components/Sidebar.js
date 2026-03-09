@@ -28,6 +28,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: "Tags", path: "/tags", icon: <BsTags size={22} /> },
     { name: "Media Library", path: "/media", icon: <MdLibraryBooks size={22} /> },
     { name: "Counselling Data", path: "/counselling", icon: <RiFileUserLine size={22} /> },
+    { name: "Comments", path: "/comments", icon: <RiFileUserLine size={22} /> }
   ];
 
   return (

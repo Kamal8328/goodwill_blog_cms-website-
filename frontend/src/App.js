@@ -14,6 +14,7 @@ import CreatePost from "./pages/CreatePost";
 import ViewPost from "./pages/ViewPost";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import BlogPage from "./components/BlogPage"
+import CommentsPage from "./pages/CommentsPage";
 
 // --- SECURITY GUARD ---
 const PrivateRoutes = () => {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/edit/:id" element={<EditPostPage />} />
           <Route path="/posts/view/:id" element={<ViewPost />} />
           <Route path="/counselling" element={<CounsellingdataPage />} />
+          <Route path="/comments" element={<CommentsPage />} />
           
           <Route path="/blog/:id" element={<BlogPostDetail />} />
           <Route path="/create" element={<CreatePost />} />

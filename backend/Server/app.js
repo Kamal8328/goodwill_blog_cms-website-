@@ -44,6 +44,10 @@ app.use("/api/tags", require("./routes/tagRoutes"));
 app.use("/api/media",require("./routes/mediaRoutes"))
 app.use("/api/contact", require("./routes/contactRoutes"))
 
+const commentRoutes = require("./routes/commentRoutes");
+
+app.use("/api", commentRoutes);
+
 
 
 const { handleContactSubmission } = require('./controllers/subscribeController');
